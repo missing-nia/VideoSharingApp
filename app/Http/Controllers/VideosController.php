@@ -13,7 +13,8 @@ class VideosController extends Controller
      */
     public function index()
     {
-        //
+        $videos = Videos::first();
+        return inertia('Home', ['videos' => $videos]);
     }
 
     /**
