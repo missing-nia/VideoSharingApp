@@ -13,7 +13,7 @@ class VideosController extends Controller
      */
     public function index()
     {
-        $videos = Videos::first();
+        $videos = Videos::latest()->simplePaginate(1);
         return inertia('Home', ['videos' => $videos]);
     }
 
