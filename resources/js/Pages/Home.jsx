@@ -11,7 +11,7 @@ export default function Index({videos}) {
                 {videos.data.map(video => (
                     <div key={video.id} className="mt-5">
                         <span className="text-stone-500">
-                            Shared on {new Date(video.created_at).toLocaleTimeString()}
+                            Shared on {new Date(video.created_at).toLocaleTimeString()} by user {video.user.username}
                         </span>
                         <iframe key={video.id}
                             width="960" 
@@ -24,7 +24,7 @@ export default function Index({videos}) {
 
                 {/*Not sure if hardcoding the prev next is the best way but
                    using normal paginate when i only need a prev/next feels kinda wasteful*/}
-                <div className>
+                <div>
                     {videos.prev_page_url ?
                         <Link
                             key="&laquo"
