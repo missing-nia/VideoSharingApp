@@ -4,16 +4,19 @@ export default function Index({videos}) {
     console.log({videos});
     return(
         <>
-            <div className="min-h-screen bg-stone-900">
+            <div className="min-h-screen bg-stone-900 text-center">
                 <h1 className="text-center font-bold text-3xl text-white">
                     Recently Shared
                 </h1>
                 {videos.data.map(video => (
-                    <div key={video.id}>
+                    <div key={video.id} className="mt-5">
+                        <span className="text-stone-500">
+                            Shared on {new Date(video.created_at).toLocaleTimeString()}
+                        </span>
                         <iframe key={video.id}
                             width="960" 
                             height="540" 
-                            className="block mx-auto mt-10"
+                            className="block mx-auto mt-5"
                             src={`https://www.youtube.com/embed/${video.video_id}`}
                         />
                     </div>
@@ -21,7 +24,7 @@ export default function Index({videos}) {
 
                 {/*Not sure if hardcoding the prev next is the best way but
                    using normal paginate when i only need a prev/next feels kinda wasteful*/}
-                <div className='text-center'>
+                <div className>
                     {videos.prev_page_url ?
                         <Link
                             key="&laquo"
