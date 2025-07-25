@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\VideosController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [VideosController::class, 'index']);
+Route::get('/', [VideoController::class, 'index']);
 
-Route::resource('videos', VideosController::class)->except('index');
+Route::resource('videos', VideoController::class)->except('index');

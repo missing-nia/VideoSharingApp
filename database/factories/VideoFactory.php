@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Videos>
  */
-class VideosFactory extends Factory
+class VideoFactory extends Factory
 {
     /**
      * Define the model's default state.
