@@ -5,15 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Video;
 use App\Http\Requests\StoreVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
+use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $videos = Video::latest()->simplePaginate(10);
+        $videos = Video::latest()->cursorPaginate(10);
+
+        if ($request->expectsJson()) {
+            return $videos;
+        }
+
         return inertia('Home', ['videos' => $videos]);
     }
 

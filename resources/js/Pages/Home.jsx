@@ -1,8 +1,23 @@
+import axios from "axios";
 import timeSince from "../Components/TimeSince";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default function Home({videos}) {
-    var data = videos.data;
-    console.log(videos)
+    const {ref, inView, entry} = useInView({});
+    const [data, setData] = useState(videos.data);
+    const [path, setPath] = useState(videos.path);
+    const [nextCursor, setNextCursor] = useState(videos.next_cursor);
+
+    useEffect(() => {
+        if(inView && nextCursor) {
+           axios.get(`${path}?cursor="${nextCursor}"`).then((response) => {
+                setData([...data, ...response.data.data]);
+                setNextCursor(response.data.next_cursor);
+           });
+        }
+    },[inView]);
+
     return(
         <>
             <div className="min-h-screen bg-stone-900 text-center">
@@ -23,10 +38,10 @@ export default function Home({videos}) {
                             </p>
                         </div>
                     ))}
-                </div>
-                <div>
+                    {/*Check for loading more data*/}
+                    <div ref={ref}></div>
                 </div>
             </div>
-</>
-)
+        </>
+    )
 }
