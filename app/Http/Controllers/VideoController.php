@@ -44,7 +44,7 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        //
+        return inertia('Show', ['video' => $video]);
     }
 
     /**

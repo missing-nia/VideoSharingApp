@@ -13,4 +13,12 @@
 .nav-header {
     position: sticky;
     top: 0;
+    z-index: 100;
+}
+
+.dynamicFrame {
+  /* Swap for your desired aspect ratio */
+  aspect-ratio: 16/9;
+  width: 50%;
+  height: auto;
 }
