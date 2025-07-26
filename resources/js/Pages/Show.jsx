@@ -31,7 +31,7 @@ export default function Show({video}) {
                         </div>
                     </div>
                     {/*Comments*/}
-                    <div className="flex justif py-8">
+                    <div className="flex justify py-8">
                         <div className="text-left box-content">
                             <h1 className="text-white text-3xl font-bold">Comments</h1>
                             {video.comments.map(comment =>(
