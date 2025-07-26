@@ -20,7 +20,7 @@ class VideoController extends Controller
             return $videos;
         }
 
-        return inertia('Home', ['videos' => $videos]);
+        return inertia('Video/Home', ['videos' => $videos]);
     }
 
     /**
@@ -44,7 +44,7 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        return inertia('Show', ['video' => $video]);
+        return inertia('Video/Show', ['video' => $video]);
     }
 
     /**

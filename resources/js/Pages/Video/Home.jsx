@@ -1,8 +1,8 @@
 import axios from "axios";
-import timeSince from "../Components/TimeSince";
+import timeSince from "../../Components/TimeSince";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { useRoute } from "../../../vendor/tightenco/ziggy" 
+import { useRoute } from "../../../../vendor/tightenco/ziggy/src/js" 
 import { Link } from "@inertiajs/react";
 
 export default function Home({videos}) {
