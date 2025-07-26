@@ -14,8 +14,3 @@
     position: sticky;
     top: 0;
 }
-
-.videos {
-  display: flex;
-  gap: 40px;
-}
