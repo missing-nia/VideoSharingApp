@@ -24,7 +24,7 @@ export default function Home({videos}) {
     return(
         <>
             <div className="min-h-screen bg-stone-900 text-left">
-                <div className="grid md:grid-cols-[repeat(3,minmax(200px,1fr))] sm:grid-cols-[repeat(2,minmax(200px,1fr))] gap-4 pl-55 pr-15 py-10">
+                <div className="grid md:grid-cols-[repeat(3,minmax(150px,1fr))] sm:grid-cols-[repeat(2,minmax(200px,1fr))] gap-4 pl-15 md:pl-55 pr-15 py-10">
                     {data.map(video => (
                         <div key={video.id}>
                             <Link href={route('video.show', video)}>
