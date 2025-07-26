@@ -16,6 +16,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->string('video_id');
+            $table->text('title');
+            $table->text('description');
             $table->timestamps();
         });
     }

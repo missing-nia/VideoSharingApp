@@ -19,7 +19,9 @@ class VideoFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'video_id' => 'ux5E1h1n1-c'
+            'video_id' => 'ux5E1h1n1-c',
+            'title' => fake()->words(rand(2, 15), true),
+            'description' => fake()->text(400),
         ];
     }
 }
