@@ -15,12 +15,11 @@ export default function Home({videos}) {
                             />
                             <p className="text-white">
                                 {video.title}
-                                <h1 className="text-stone-500 text-sm">
-                                    {video.user.username}
-                                </h1>
-                                <h1 className="text-stone-500 text-sm">
-                                    {timeSince(new Date(video.created_at))} ago
-                                </h1>
+                            </p>
+                            <p className="text-stone-500 text-sm">
+                                {video.user.username} 
+                                <br/>
+                                {timeSince(new Date(video.created_at))} ago
                             </p>
                         </div>
                     ))}
