@@ -4,7 +4,7 @@ export default function Show({video}) {
     return(
         <>
             <div className="min-h-screen bg-stone-900">
-                <div className="md:pl-25 ml-10 md:ml-25 lg:ml-35 mr-10 lg:mr-10 xl:mr-5 text-left">
+                <div className="padding-main text-left">
                     <iframe
                         className="aspect-video rounded-lg w-[100%] lg:w-[75%]"
                         allow="fullscreen"
