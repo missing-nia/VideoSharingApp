@@ -27,9 +27,9 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'username' => ['required', 'regex:/^[\w\.-]{3,20}$/'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed']
+            'username' => ['required', 'regex:/^[\w\.-]{3,20}$/', 'unique:users,username'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'confirmed', 'unique:users,password']
         ]);
 
         $user = User::create($attributes);     
