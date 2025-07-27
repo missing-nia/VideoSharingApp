@@ -1,14 +1,13 @@
 import { usePage, useForm } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 
-export default function Show({video}) {
+export default function Show({video, comments}) {
     const { auth } = usePage().props;
     const {data, setData, post, errors, processing} = useForm({
         user_id: auth?.user?.id,
         video_id: video.id,
         body: "",
     });
-
 
     function submit(e) {
         e.preventDefault();
@@ -81,7 +80,7 @@ export default function Show({video}) {
                                 </div>
                             </form> 
 
-                            {video.comments.map(comment =>(
+                            {comments.map(comment =>(
                                 <div key={comment.id} className="text-stone-800 border-b py-5">
                                     <h1 className="text-stone-500">
                                         {comment.user.username} at {new Date(comment.created_at).toLocaleTimeString()}

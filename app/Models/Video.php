@@ -14,7 +14,7 @@ class Video extends Model
         'created_at',
         'updated_at'
     ];
-    protected $with = ['user', 'comments'];
+    protected $with = ['user'];
 
     public function user()
     {
