@@ -1,8 +1,13 @@
-import { Link, usePage } from "@inertiajs/react";
+import { Link, usePage, useForm } from "@inertiajs/react";
 
 export default function Header({children}) {
     const { auth } = usePage().props;
-    console.log(auth);
+    const { post, processing } = useForm();
+
+    function submit(e) {
+        e.preventDefault();
+        post('/logout');
+    }
 
     return (
         <>
@@ -15,12 +20,13 @@ export default function Header({children}) {
                         {!auth.user ? (
                             <div className="flex items-center text-white gap-4 px-4 font-semibold">
                                 <Link href='/register'>Register</Link>
-                                <Link href=''>Login</Link>
+                                <Link href='/login'>Login</Link>
                             </div>
                         ) : (
-                            <div className="flex items-center text-white gap-4 px-4 font-semibold">
-                                <Link href=''>Logout</Link>
-                            </div>
+                            <form className="flex items-center text-white gap-4 px-4 font-semibold" onSubmit={(e) => submit(e)}>
+                                <span>Logged in as {auth.user.username}</span>
+                                <button className="hover:cursor-pointer" disabled={processing}>Logout</button>
+                            </form>
                         )}
                     </div>
                 </nav>
