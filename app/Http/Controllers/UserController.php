@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -29,7 +28,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $attributes = $request->validate([
+            'username' => ['required', 'regex:/^[\w\.-]{3,20}$/'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed']
+        ]);
+
+        $user = User::create($attributes);     
+        Auth::login($user);
+
+        return redirect('/');
     }
 
     /**
@@ -37,6 +45,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        return inertia('User/Show', ['user' => $user]);
     }
 
     /**
