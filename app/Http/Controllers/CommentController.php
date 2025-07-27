@@ -41,7 +41,7 @@ class CommentController extends Controller
             'body' => ['required', 'string', 'max:250']
         ]);
 
-        $comment = Comment::create($attributes);
+        Comment::create($attributes);
     }
 
     /**

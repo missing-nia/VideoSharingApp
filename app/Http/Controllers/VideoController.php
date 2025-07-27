@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Video;
 use App\Http\Requests\StoreVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
+use App\Rules\validID;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
@@ -28,15 +30,35 @@ class VideoController extends Controller
      */
     public function create()
     {
-        //
+        if(!Auth::check())
+        {
+            // Need an account to share videos
+            return redirect("/login");
+        }
+        return inertia('Video/Share');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVideoRequest $request)
+    public function store(Request $request)
     {
-        //
+        if(!Auth::check())
+        {
+            // Abort
+            return redirect("/login");
+        }
+        
+        $attributes = $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'video_id' => ['required', new validID],
+            'title' => ['required', 'min:1', 'max:200'],
+            'description' => ['required', 'max:1000'],
+        ]);
+
+        Video::create($attributes);     
+
+        return redirect('/');
     }
 
     /**
