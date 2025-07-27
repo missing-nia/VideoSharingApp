@@ -1,6 +1,6 @@
 import { useForm } from "@inertiajs/react";
 
-export default function Create() {
+export default function Register() {
     const {data, setData, post, errors, setError, processing} = useForm({
         username: '',
         email: '',
@@ -15,7 +15,7 @@ export default function Create() {
         e.preventDefault();
         if (!hasErrors())
         {
-            post('/user');
+            post('/register');
         }
     }
 
