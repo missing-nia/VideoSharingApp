@@ -10,6 +10,12 @@ class Comment extends Model
     /** @use HasFactory<\Database\Factories\CommentsFactory> */
     use HasFactory;
 
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
+
     protected $with = ['user'];
 
     public function user()
