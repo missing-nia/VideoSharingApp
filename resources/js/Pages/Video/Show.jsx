@@ -1,5 +1,6 @@
-import { usePage, useForm } from "@inertiajs/react";
+import { usePage, useForm, Link } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
+import { route } from "../../../../vendor/tightenco/ziggy/src/js";
 
 export default function Show({video, comments}) {
     const { auth } = usePage().props;
@@ -43,7 +44,8 @@ export default function Show({video, comments}) {
                     </span>
                     <br></br>
                     <span className="text-stone-500">
-                        Shared by {video.user.username}
+                        Shared by 
+                        <Link href={route('user.show', video.user)} className="px-1">{video.user.username}</Link>
                     </span>
                     <div className="flex justify mt-5">
                         <div className="text-left box-content w-[100%] lg:w-[75%] bg-stone-800 rounded-lg text-white">

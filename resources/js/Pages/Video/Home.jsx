@@ -36,9 +36,10 @@ export default function Home({videos}) {
                                     {video.title}
                                 </p>
                             </Link>
+                            <Link href={route('user.show', video.user)} className="text-stone-500 text-sm">
+                                {video.user.username}
+                            </Link>
                             <p className="text-stone-500 text-sm">
-                                {video.user.username} 
-                                <br/>
                                 {timeSince(new Date(video.created_at))} ago
                             </p>
                         </div>
