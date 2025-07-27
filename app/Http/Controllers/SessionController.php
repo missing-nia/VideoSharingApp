@@ -10,6 +10,12 @@ class SessionController extends Controller
 {
     public function create()
     {
+        if(Auth::check())
+        {
+            // Already logged in
+            return redirect("/");
+        }
+
         return inertia('Auth/Login');
     }
 
