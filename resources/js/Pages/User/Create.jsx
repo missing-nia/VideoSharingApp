@@ -2,14 +2,98 @@ import { useForm } from "@inertiajs/react";
 
 export default function Create() {
     const {data, setData, post, errors, setError, processing} = useForm({
-        username: "",
-        email: "",
-        password: "",
+        username: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
     });
+
+    const usernameRegex = /^[\w\.-]{3,20}$/;
+    const emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
 
     function submit(e) { 
         e.preventDefault();
-        post('/user');
+        if (!hasErrors())
+        {
+            post('/user');
+        }
+    }
+
+    function handleUsernameValidation(username) {
+        if (username.length < 3 || username.length > 20)
+        {
+            setError({
+                username: 'Username must be between 3 and 20 characters'
+            });
+        }
+        else if (usernameRegex.test(username) == false)
+        {
+            setError({
+                username: 'Username may only include letters, numbers, and the special characters: ._-'
+            });
+        }
+        else
+        {
+            setError({
+                username: null
+            });
+            setData('username', username);
+        }
+    }
+
+    // This is technically superfluous due to typing
+    // doing a good enough job but i like the feedback
+    // red text provides :)
+    function handleEmailValidation(email)
+    {
+        if (emailRegex.test(email) == false)
+        {
+            setError({
+                email: 'Please enter a valid email address'
+            });
+        }
+        else
+        {
+            setError({
+                email: null
+            })
+            setData('email', email);
+        }
+    }
+
+    function handlePasswordValidation(first, second) {
+        if (first != second)
+        {
+            setError({
+                password: 'Passwords must match'
+            });
+        }
+        else
+        {
+            setError({
+                password: null
+            });
+        }
+    }
+
+    // Sister functions to add password error handling to both
+    function setPasswordData(password) {
+        setData('password', password);
+        handlePasswordValidation(password, data.password_confirmation);
+    }
+
+    function setPasswordConfirmationData(password_confirmation) {
+        setData('password_confirmation', password_confirmation);
+        handlePasswordValidation(password_confirmation, data.password);
+    }
+
+    function hasErrors() {
+        // Kinda janky but check all of the possible errors for disabling submit
+        if(!errors.username && !errors.email && !errors.password)
+        {
+            return false;
+        }
+        return true;
     }
 
     return(
@@ -27,7 +111,10 @@ export default function Create() {
                         type="text" 
                         placeholder="username" 
                         required 
+                        onChange={(e) =>
+                            handleUsernameValidation(e.target.value)}
                     />
+                    {errors.username && <p className={`text-red-500 text-xs font-semibold ${errors.username && "!visible"}`}>{errors.username}</p>}
                     
                     <label className="block uppercase tracking-wide text-xs font-bold mb-2 mt-5">email</label>
                     <input 
@@ -36,7 +123,10 @@ export default function Create() {
                         type="email" 
                         placeholder="email" 
                         required
+                        onChange={(e) => 
+                            handleEmailValidation(e.target.value)}
                     />
+                    {errors.email && <p className={`text-red-500 text-xs font-semibold ${errors.email && "!visible"}`}>{errors.email}</p>}
 
                     <label className="block uppercase tracking-wide text-xs font-bold mb-2 mt-5">password</label>
                     <input 
@@ -45,7 +135,10 @@ export default function Create() {
                         type="password"
                         placeholder="password" 
                         required
+                        onChange={(e) => 
+                            setPasswordData(e.target.value)}
                     />
+                    {errors.password && <p className={`text-red-500 text-xs font-semibold ${errors.password && "!visible"}`}>{errors.password}</p>}
 
                     <label className="block uppercase tracking-wide text-xs font-bold mb-2 mt-5">confirm password</label>
                     <input 
@@ -54,6 +147,9 @@ export default function Create() {
                         type="password" 
                         placeholder="confirm password" 
                         required
+                        onChange={(e) =>
+                            setPasswordConfirmationData(e.target.value)
+                        }
                     />
 
                     <button className="primary-btn mt-8" disabled={processing}>Register</button>
