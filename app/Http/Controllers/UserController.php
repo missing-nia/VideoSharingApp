@@ -20,6 +20,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        if(Auth::check())
+        {
+            // Don't let a user keep making accounts?
+            return redirect("/");
+        }
         return inertia('User/Create');
     }
 
